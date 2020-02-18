@@ -52,7 +52,11 @@ WHERE departement_code = "13"
 GROUP BY libelle, departement_code
 
 QUESTION#8
-
+SELECT count(sexe) AS nb_delus ,departement_code AS num_departement FROM elus AS e
+INNER JOIN villes AS v ON e.code_insee = v.code_insee
+WHERE sexe = "F"
+GROUP BY departement_code
+ORDER BY nb_delus DESC LIMIT 10
 
 QUESTION #9
 SELECT AVG(timestampdiff(year, date_de_naissance,'2014-01-01')) AS avg_age ,departement_code AS num_departement FROM elus AS e
@@ -62,5 +66,6 @@ GROUP BY departement_code
 QUESTION #10
 SELECT AVG(timestampdiff(year, date_de_naissance,'2014-01-01')) AS avg_age ,departement_code AS num_departement FROM elus AS e
 INNER JOIN villes AS v ON e.code_insee = v.code_insee
-GROUP BY departement_code DESC
-HAVING avg_age > 54
+GROUP BY departement_code
+HAVING avg_age < 54
+ORDER BY avg_age ASC

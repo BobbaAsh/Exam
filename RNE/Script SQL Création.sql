@@ -75,3 +75,15 @@ id INT(4)
 CREATE USER 'RNE_user'@'localhost' IDENTIFIED BY 'RNE_password';
 GRANT ALL PRIVILEGES ON localhost.rne TO 'RNE_user'@'localhost';
 FLUSH PRIVILEGES;
+
+ALTER TABLE elus
+ADD INDEX idx_nom (nom);
+
+ALTER TABLE elus
+ADD INDEX idx_code_insee (code_insee);
+
+ALTER TABLE elus
+ADD INDEX idx_nuance (code_nuance_de_la_liste);
+
+ALTER TABLE villes
+ADD INDEX idx_code_insee (code_insee);
