@@ -1,0 +1,47 @@
+QUESTION#1
+SELECT * FROM nuancier
+WHERE libelle LIKE '%Union%'
+
+
+QUESTION#2
+SELECT * FROM elus AS e
+LEFT JOIN villes AS v ON e.code_insee = v.code_insee
+LEFT JOIN departements AS d ON v.departement_code = d.code
+WHERE d.name = "Var" AND MONTH(date_de_naissance) BETWEEN "06" AND "08"
+
+
+QUESTION#3
+SELECT AVG(timestampdiff(year, date_de_naissance,'2014-01-01')) AS avg_age FROM elus
+WHERE sexe = "M"
+GROUP BY sexe
+
+
+SELECT AVG(timestampdiff(year, date_de_naissance,'2014-01-01')) AS avg_age FROM elus
+WHERE sexe = "F"
+GROUP BY sexe
+
+
+QUESTION#4
+SELECT SUM(population_legale) AS population_total FROM population AS p
+LEFT JOIN villes AS v ON p.code_insee = v.code_insee
+LEFT JOIN departements AS d ON v.departement_code = d.code
+WHERE d.name = "Bouches-du-Rhône"
+
+
+QUESTION#5
+SELECT d.name,SUM(ouvriers) FROM categorie AS  c
+INNER JOIN population AS p ON c.code = p.code_insee
+INNER JOIN villes AS v ON p.code_insee = v.code_insee
+INNER JOIN departements AS d ON v.departement_code = d.code
+GROUP BY d.name ASC LIMIT 10
+
+
+QUESTION#6
+SELECT COUNT(nom) AS nb_elu ,libelle AS parti_pol ,departement_code AS num_departement
+FROM elus
+INNER JOIN nuancier ON elus.code_nuance_de_la_liste = nuancier.code
+INNER JOIN villes ON elus.code_insee = villes.code_insee
+GROUP BY libelle, departement_code
+
+
+QUESTION#7
