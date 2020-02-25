@@ -49,7 +49,8 @@ SELECT COUNT(nom) AS nb_elu ,libelle AS parti_pol ,departement_code AS num_depar
 INNER JOIN nuancier AS n ON e.code_nuance_de_la_liste = n.code
 INNER JOIN villes AS v ON e.code_insee = v.code_insee
 WHERE departement_code = "13"
-GROUP BY libelle, departement_code
+GROUP BY libelle, departement_code, ville.name
+
 
 QUESTION#8
 SELECT count(sexe) AS nb_delus ,departement_code AS num_departement FROM elus AS e

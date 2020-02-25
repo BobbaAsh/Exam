@@ -23,12 +23,18 @@ engine = create_engine("mysql+pymysql://root@localhost/RNE")
 def r_names(x):
     s2 = x.lower().replace(' ', '_').replace(',','').replace('(','').replace(')','').replace("'",'').replace('é','e').split()
     return(s2)
+ 
+def parse_dates(x3):
+    for i in range(0,len(x3)):
+        if x3[i][0:4]=='Date':
+            return x3[i]
+    return    
     
 def chargement(x, link, table):
     col = r_names(x)
     print("Lecture des données")
     start_time = time.time()
-    df = pd.read_excel(link, skiprows = [0])
+    df = pd.read_excel(link, skiprows = [0,1])
     df.columns = col
     print("Données lu")
     df.to_sql(table, con = engine, if_exists='append', index = False)
